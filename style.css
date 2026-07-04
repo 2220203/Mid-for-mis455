@@ -1,0 +1,407 @@
+/* ==========================================================================
+   Fernwell — shared stylesheet (used by home, products and contact pages)
+   ========================================================================== */
+
+/* ---- Design tokens (colours, fonts, spacing) ---------------------------- */
+:root {
+  --ink:      #16241c;   /* near-black green, used for text/header/footer   */
+  --forest:   #234b34;   /* primary brand green                            */
+  --fern:     #4f9b64;   /* bright accent green (links, primary buttons)   */
+  --sage:     #cdddcf;   /* soft green for borders / light fills           */
+  --ochre:    #d09b3f;   /* warm accent for the secondary button           */
+  --paper:    #f7f5ef;   /* page background                                */
+  --card:     #ffffff;   /* card background                                */
+  --muted:    #5c6b60;   /* muted text                                     */
+
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body:    "DM Sans", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --radius:  14px;
+  --shadow:  0 10px 30px rgba(22, 36, 28, 0.08);
+  --wrap:    1120px;     /* max content width                              */
+}
+
+/* ---- Base / reset ------------------------------------------------------- */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.65;
+}
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0 0 .4em; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 600; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); }
+h3 { font-size: 1.2rem; }
+p  { margin: 0 0 1em; color: #35433b; }
+
+a { color: var(--forest); }
+
+img { display: block; max-width: 100%; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 22px; }
+
+.eyebrow {
+  font-family: var(--body);
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--fern);
+  margin-bottom: .6em;
+}
+
+/* ==========================================================================
+   HEADER + NAVIGATION  (shared by all three pages)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ink);
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.header-inner {
+  display: flex;                 /* header uses flex to space logo and nav */
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 22px;
+  max-width: var(--wrap);
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: #fff;
+  text-decoration: none;
+}
+.logo .leaf { font-size: 1.4rem; }
+
+/* --- the navigation bar --- */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  position: relative;
+  color: #e8efe9;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 2px;
+  transition: color .25s ease;
+}
+/* animated underline that grows on hover (the required hover effect) */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background: var(--fern);
+  transition: width .28s ease;
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: #fff; }
+.nav-links a.active::after { width: 100%; }
+
+/* small cart badge shown in the header */
+.cart-pill {
+  background: var(--fern);
+  color: #06210f;
+  font-weight: 700;
+  font-size: .85rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   BUTTONS  (two distinct styles used across the project)
+   ========================================================================== */
+.btn {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 1rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 26px;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+
+/* Button style #1 — solid green primary button */
+.btn-primary {
+  background: var(--fern);
+  color: #06210f;
+  box-shadow: 0 6px 16px rgba(79, 155, 100, .35);
+}
+.btn-primary:hover { background: #3f8753; box-shadow: 0 9px 22px rgba(79, 155, 100, .45); }
+
+/* Button style #2 — warm outline button */
+.btn-outline {
+  background: transparent;
+  color: var(--ochre);
+  border: 2px solid var(--ochre);
+}
+.btn-outline:hover { background: var(--ochre); color: #2a1e05; }
+
+/* ==========================================================================
+   HOME PAGE
+   ========================================================================== */
+
+/* --- Hero: HOME PAGE USES display:flex here --- */
+.hero {
+  display: flex;                 /* <<< required display:flex for Home page */
+  align-items: center;
+  gap: 48px;
+  padding: 70px 0 40px;
+}
+.hero-text { flex: 1 1 460px; }
+.hero-media { flex: 1 1 380px; }
+
+.hero-media img {
+  background: #eef5ee;
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+
+/* the box that shows the random care tip from JavaScript */
+.tip-box {
+  margin-top: 26px;
+  min-height: 26px;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px dashed var(--sage);
+  border-radius: var(--radius);
+  color: var(--forest);
+  font-weight: 500;
+}
+
+/* --- Feature row: also uses flex --- */
+.features {
+  display: flex;                 /* second flex layout on the Home page */
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 30px 0 70px;
+}
+.feature {
+  flex: 1 1 300px;
+  background: var(--card);
+  border: 1px solid var(--sage);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow);
+  transition: transform .2s ease;
+}
+.feature:hover { transform: translateY(-6px); }
+.feature .icon { font-size: 1.8rem; }
+
+/* small two-image gallery strip on the home page */
+.split {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 0 70px;
+}
+.split .split-media,
+.split .split-copy { flex: 1 1 320px; }
+.split img {
+  background: #eef5ee;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .4s ease;
+}
+.split img:hover { transform: scale(1.03); }   /* gentle zoom on hover */
+
+/* ==========================================================================
+   PRODUCTS PAGE
+   ========================================================================== */
+.page-head { padding: 56px 0 20px; max-width: 720px; }
+
+/* PRODUCTS PAGE USES display:grid here */
+.product-grid {
+  display: grid;                 /* <<< required display:grid for Products  */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+  padding: 10px 0 70px;
+}
+.product-card {
+  background: var(--card);
+  border: 1px solid var(--sage);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(22,36,28,.14);
+}
+.product-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  background: #eef5ee;
+  transition: transform .4s ease;
+}
+.product-card:hover img { transform: scale(1.05); }
+.product-body { padding: 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.product-body h3 { margin: 0; }
+.price { font-weight: 700; color: var(--forest); font-size: 1.05rem; }
+.care-tag {
+  align-self: flex-start;
+  font-size: .74rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--paper);
+  border: 1px solid var(--sage);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.product-body .btn { margin-top: auto; }
+
+/* little pop-up confirmation ("toast") when adding to cart */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+  z-index: 80;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ==========================================================================
+   CONTACT PAGE
+   ========================================================================== */
+.contact-layout {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 20px 0 70px;
+}
+.contact-info { flex: 1 1 320px; }
+.contact-form-wrap {
+  flex: 1 1 380px;
+  background: var(--card);
+  border: 1px solid var(--sage);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+.field { margin-bottom: 16px; }
+.field label { display: block; font-weight: 600; margin-bottom: 6px; font-size: .95rem; }
+.field input,
+.field textarea {
+  width: 100%;
+  font-family: var(--body);
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 1px solid var(--sage);
+  border-radius: 10px;
+  background: var(--paper);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--fern);
+  box-shadow: 0 0 0 3px rgba(79,155,100,.18);
+}
+.field textarea { min-height: 130px; resize: vertical; }
+
+.form-status { margin-top: 12px; font-weight: 600; min-height: 22px; }
+.form-status.ok  { color: var(--forest); }
+.form-status.err { color: #b23b3b; }
+
+.info-images { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 22px; }
+.info-images img {
+  background: #eef5ee;
+  flex: 1 1 140px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  transition: transform .4s ease;
+}
+.info-images img:hover { transform: scale(1.03); }
+
+.info-list { list-style: none; padding: 0; margin: 18px 0 0; }
+.info-list li { padding: 8px 0; border-bottom: 1px solid var(--sage); }
+.info-list strong { color: var(--forest); }
+
+/* ==========================================================================
+   FOOTER  (shared by all three pages)
+   ========================================================================== */
+.site-footer {
+  background: var(--ink);
+  color: #cfe0d4;
+  margin-top: 20px;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 46px 22px 26px;
+  max-width: var(--wrap);
+  margin: 0 auto;
+}
+.footer-col { flex: 1 1 200px; }
+.footer-col h4 { font-family: var(--display); color: #fff; margin: 0 0 12px; }
+.footer-col a { color: #cfe0d4; text-decoration: none; display: block; padding: 4px 0; transition: color .2s ease; }
+.footer-col a:hover { color: var(--fern); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  text-align: center;
+  padding: 16px;
+  font-size: .85rem;
+  color: #9fb4a5;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 760px) {
+  .nav-links { gap: 16px; }
+  .hero { padding-top: 40px; }
+  .hero-media img { height: 300px; }
+}
